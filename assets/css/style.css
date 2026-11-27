@@ -2094,3 +2094,7 @@ h1.lede {
   padding-bottom: 10px;
   border-bottom: 1px solid var(--rule);
 }
+
+.work-figures .is-narrow {
+  max-width: min(100%, 720px);
+}
