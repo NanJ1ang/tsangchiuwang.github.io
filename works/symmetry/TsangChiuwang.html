@@ -145,6 +145,7 @@ html[data-ui="madder"]{--ui-1:11,9,9;--ui-2:17,14,14;--ui-3:24,20,20;--ui-4:36,2
 </style><script>(()=>{let t='gilded';try{t=localStorage.getItem('sa.theme')||''}catch(e){}
 if(['gilded','celadon','madder'].indexOf(t)<0){const k=['gilded','celadon','madder'];t=k[Math.floor(Math.random()*3)];try{localStorage.setItem('sa.theme',t)}catch(e){}}
 document.documentElement.dataset.ui=t})();</script>
+<style>/* english build */ #language-toggle{display:none !important;}</style>
 </head>
 <body><script type="text/plain" id="ai-system-prompt">You are the AI Art Director for Symmetry Art, an existing single-file HTML Canvas 2D geometric drawing application.
 
@@ -325,7 +326,7 @@ if(reduce){fill.style.width='100%';count.textContent='100';setTimeout(done,450);
 let exited=false;const exit=()=>{if(exited)return;exited=true;el.classList.add('is-exit');setTimeout(done,OUT+80)};
 const t0=performance.now();const tick=now=>{const p=Math.min(1,(now-t0)/DUR);fill.style.width=(p*100).toFixed(1)+'%';count.textContent=String(Math.round(p*100)).padStart(2,'0');if(p<1)requestAnimationFrame(tick);else exit()};
 requestAnimationFrame(tick);setTimeout(exit,DUR+1200)})();</script>
-<main class="app"><aside class="sidebar" aria-label="Artwork controls"><header><div class="eyebrow">INTERACTIVE CANVAS / 02</div><h1 class="brand-title">SYMMETRY</h1><div class="brand-subtitle">Geometric Art</div><button id="language-toggle" class="language-toggle" type="button" aria-label="Switch language">中文 / EN</button><button id="shortcuts-toggle" class="shortcut-toggle" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="查看键盘快捷键">快捷键 / SHORTCUTS<span class="sc-hint">?</span></button><button id="ai-toggle" class="shortcut-toggle" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="打开 AI Studio 参数工作室">AI STUDIO</button></header><div class="divider"></div>
+<main class="app"><aside class="sidebar" aria-label="Artwork controls"><header><div class="eyebrow">INTERACTIVE CANVAS / 02</div><h1 class="brand-title">SYMMETRY</h1><div class="brand-subtitle">Geometric Art</div><button id="language-toggle" class="language-toggle" type="button" aria-label="Switch language">中文 / EN</button><button id="shortcuts-toggle" class="shortcut-toggle" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="View keyboard shortcuts">SHORTCUTS<span class="sc-hint">?</span></button><button id="ai-toggle" class="shortcut-toggle" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Open AI Studio">AI STUDIO</button></header><div class="divider"></div>
 <section class="group"><div class="section-label">SYMMETRY MODE</div><div class="radio-list">
 <div class="radio-option"><input type="radio" name="mode" id="m-radial" value="radial" checked><label for="m-radial">Radial</label></div><div class="radio-option"><input type="radio" name="mode" id="m-square" value="square"><label for="m-square">Square</label></div><div class="radio-option"><input type="radio" name="mode" id="m-grid" value="grid"><label for="m-grid">Grid</label></div><div class="radio-option"><input type="radio" name="mode" id="m-spiral" value="spiral"><label for="m-spiral">Spiral</label></div><div class="radio-option"><input type="radio" name="mode" id="m-fractal" value="fractal"><label for="m-fractal">Fractal</label></div><div class="radio-option"><input type="radio" name="mode" id="m-triangle" value="triangle"><label for="m-triangle">Triangle</label></div><div class="radio-option"><input type="radio" name="mode" id="m-custom" value="custom"><label for="m-custom">Custom center</label></div></div></section>
 <section id="radial-controls" class="group mode-panel"><div class="section-label"><label for="sections">SECTIONS</label><span class="value" id="sections-v">6</span></div><input class="range" id="sections" type="range" min="2" max="32" value="6"><div class="range-ends"><span>2</span><span>32</span></div><label class="toggle-row" for="mirror"><span>Kaleidoscope Mirror</span><input class="switch" id="mirror" type="checkbox" checked></label></section>
@@ -477,9 +478,9 @@ const stack=document.createElement('div');stack.className='control-stack';
 const sections=[['01 — SYMMETRY',[0,1,2],true],['02 — COLOR',[3],true],['03 — BRUSH',[4],false],['04 — CANVAS & STUDIO',[5,6],false]];
 for(const [title,ids,open] of sections){const d=document.createElement('details');d.className='control-section';d.open=open;const sum=document.createElement('summary');sum.textContent=title;const body=document.createElement('div');body.className='section-content';ids.forEach(i=>{if(allGroups[i])body.appendChild(allGroups[i])});if(title.includes('COLOR')&&allGroups[5]){const hueControls=allGroups[5].querySelector('.two-col');if(hueControls){hueControls.classList.add('color-advanced');body.appendChild(hueControls)}const bgLabel=allGroups[5].querySelector('#background')?.closest('label');if(bgLabel){const bgRow=document.createElement('div');bgRow.className='color-advanced color-background-row';bgRow.appendChild(bgLabel);body.appendChild(bgRow)}}if(title.includes('BRUSH')&&allGroups[6]){const eraser=$('eraser');if(eraser){const eraserRow=document.createElement('div');eraserRow.className='tool-row brush-tool-row';eraserRow.appendChild(eraser);body.appendChild(eraserRow)}}if(title.includes('CANVAS')&&allGroups[5]){const meta=allGroups[5].querySelector('.two-col');if(meta){meta.classList.add('art-meta');meta.style.gridTemplateColumns='1fr'}}d.append(sum,body);stack.appendChild(d)}
 const sidebar=document.querySelector('.sidebar'),header=sidebar.querySelector('header'),divider=sidebar.querySelector('.divider');
-const APT=[['gilded','鎏金石墨','鎏金','#D9C29B','rgba(217,194,155,.22)'],['celadon','青瓷钴蓝','青瓷','#8FC3BB','rgba(143,195,187,.22)'],['madder','茜草烟粉','茜草','#C98F86','rgba(201,143,134,.22)']];
+const APT=[['gilded','Gilded Slate','Gilded','#D9C29B','rgba(217,194,155,.22)'],['celadon','Celadon Cobalt','Celadon','#8FC3BB','rgba(143,195,187,.22)'],['madder','Madder Smoke','Madder','#C98F86','rgba(201,143,134,.22)']];
 const appear=document.createElement('div');appear.className='appearance';
-appear.innerHTML='<div class="appearance-head"><span class="appearance-label">APPEARANCE / 界面主题</span><div class="swatches"></div></div><div class="appearance-note">界面主题 · 不影响画布颜色</div>';
+appear.innerHTML='<div class="appearance-head"><span class="appearance-label">APPEARANCE</span><div class="swatches"></div></div><div class="appearance-note">Interface theme — the canvas colour is unaffected</div>';
 const swWrap=appear.querySelector('.swatches');
 APT.forEach(function(a){const b=document.createElement('button');b.type='button';b.className='swatch';b.dataset.theme=a[0];b.setAttribute('aria-label','切换为'+a[1]+'主题');b.title=a[1];b.innerHTML='<i style="--dot:'+a[3]+';--halo:'+a[4]+'"></i><span class="full">'+a[1]+'</span><span class="short">'+a[2]+'</span>';swWrap.appendChild(b)});
 const curTheme=()=>document.documentElement.dataset.ui||'gilded';
@@ -497,46 +498,46 @@ const qUndo=$('q-undo'),qRedo=$('q-redo');const oldSnapshot=snapshot;snapshot=fu
 
 // Chinese / English localization for visible UI text and accessibility labels.
 const translations={
-'SYMMETRY':'对称模式','Geometric Art':'几何艺术','INTERACTIVE CANVAS / 02':'互动绘画 / 02','SYMMETRY MODE':'对称模式','Radial':'放射','Square':'四象限','Grid':'网格','Spiral':'螺旋','Fractal':'分形','Triangle':'三角网格','Custom center':'自定义中心','01 — SYMMETRY':'01 — 对称','02 — COLOR':'02 — 色彩','03 — BRUSH':'03 — 画笔','04 — CANVAS & STUDIO':'04 — 画布与工作室','SECTIONS':'对称分区','Kaleidoscope Mirror':'万花筒镜像','GRID SIZE':'网格尺寸','COLOR SCHEME':'色彩方案','Rainbow flow':'彩虹流光','Ember spectrum':'余烬光谱','Deep current':'深海潮汐','Electric glow':'霓虹电光','Your colors':'自定义色彩','Rainbow':'彩虹','Fire':'火焰','Ocean':'海洋','Neon':'霓虹','Custom':'自定义','COLOR 01':'颜色 01','COLOR 02':'颜色 02','COLOR 03':'颜色 03','BRUSH WEIGHT':'画笔粗细','HUE SHIFT':'色相偏移','COLOR SPEED':'色彩速度','BACKGROUND':'背景颜色','ARTWORK NAME':'作品名称','STUDIO TOOLS':'工作室工具','Undo':'撤销','Redo':'重做','↶ Undo':'↶ 撤销','↷ Redo':'↷ 重做','Eraser':'橡皮擦','ZOOM':'缩放','PRESETS':'预设作品','Choose artwork…':'选择预设…','Luminous Mandala':'璀璨曼陀罗','Glass Flower':'琉璃花','Orbit Bloom':'轨道花','Solar Flame':'太阳火焰','Aurora Fan':'极光扇面','Prismatic Star':'棱镜星芒','Lace Rosette':'蕾丝花环','Orbit Cluster':'轨道星簇','Crystal Web':'水晶网格','Wave Petals':'波纹花瓣','Infinity Bloom':'无限花环','Comet Spiral':'彗星螺旋','Random art':'随机生成','Auto demo':'自动演示','Fullscreen':'全屏','Custom center mode: tap or click canvas to place symmetry center. Zoom changes the artwork view.':'自定义中心：点击画布设置对称中心。缩放可调整画面视图。','CLEAR':'清空','PNG 2×':'PNG 2×','SVG':'SVG','Record':'录制','Stop':'停止','LIVE CANVAS · LIGHT STUDY':'实时画布 · 光影实验','STUDIO CONTROLS　⌃':'工作室控制　⌃','CLOSE STUDIO　⌄':'关闭面板　⌄','DRAW • SPACE FOR DEMO • CTRL/CMD+⌫ TO UNDO':'绘制 • 空格键演示 • Ctrl/Cmd+⌫ 撤销','Undo · Ctrl/Cmd+⌫':'撤销 · Ctrl/Cmd+⌫','Toggle eraser':'切换橡皮擦','Clear canvas':'清空画布','Recording canvas to WebM':'正在录制画布为 WebM','WebM recording downloaded':'WebM 录制已下载','Preset loaded':'已载入预设','Auto demo started · click again to stop':'自动演示已启动 · 再点一次停止','Auto demo stopped':'自动演示已停止','Symmetry center placed':'已设置对称中心','Custom center mode: tap or click canvas to place symmetry center. Zoom changes the artwork view.':'自定义中心：点击画布设定中心点；之后可在画布上绘制。缩放只调整画面视图。','Eraser enabled':'橡皮擦已启用','Brush enabled':'画笔已启用','SVG wrapper exported (embedded PNG)':'SVG 容器已导出（内嵌 PNG）','Recording is not supported in this browser':'此浏览器不支持录制','STROKE SMOOTHING':'笔触平滑','BRUSH MODE':'画笔模式','GLOW / PARTICLE POWER':'流光／粒子强度','Silk Flow':'丝绸流光','Prism Ribbon':'棱镜缎带','Comet Trail':'彗星拖尾','Particle Spark':'粒子火花','Nebula Dust':'星云微尘','Plasma Arc':'等离子电弧','Soft':'柔和','Brilliant':'明亮','Responsive':'灵敏','Silky':'丝滑','Random: Bloom':'随机：花簇','Random: Orbit':'随机：轨道','Random: Ribbon':'随机：缎带','Random: Starburst':'随机：星芒','Random: Web':'随机：织网','Random: Petals':'随机：花瓣','Random: Comet':'随机：彗星','Random: Lissajous':'随机：利萨如曲线','Random: Lightburst':'随机：光束','Random: Lace':'随机：蕾丝','Stop demo':'停止演示','Auto demo started · click again to stop':'自动演示已启动 · 再点一次停止','Auto demo stopped':'自动演示已停止'
+'SYMMETRY':'对称模式','Geometric Art':'几何艺术','INTERACTIVE CANVAS / 02':'互动绘画 / 02','SYMMETRY MODE':'对称模式','Radial':'放射','Square':'四象限','Grid':'网格','Spiral':'螺旋','Fractal':'分形','Triangle':'三角网格','Custom center':'自定义中心','01 — SYMMETRY':'01 — 对称','02 — COLOR':'02 — 色彩','03 — BRUSH':'03 — 画笔','04 — CANVAS & STUDIO':'04 — 画布与工作室','SECTIONS':'对称分区','Kaleidoscope Mirror':'万花筒镜像','GRID SIZE':'网格尺寸','COLOR SCHEME':'色彩方案','Rainbow flow':'彩虹流光','Ember spectrum':'余烬光谱','Deep current':'深海潮汐','Electric glow':'霓虹电光','Your colors':'自定义色彩','Rainbow':'彩虹','Fire':'火焰','Ocean':'海洋','Neon':'霓虹','Custom':'自定义','COLOR 01':'颜色 01','COLOR 02':'颜色 02','COLOR 03':'颜色 03','BRUSH WEIGHT':'画笔粗细','HUE SHIFT':'色相偏移','COLOR SPEED':'色彩速度','BACKGROUND':'背景颜色','ARTWORK NAME':'作品名称','STUDIO TOOLS':'工作室工具','Undo':'Undo','Redo':'Redo','↶ Undo':'↶ Undo','↷ Redo':'↷ Redo','Eraser':'橡皮擦','ZOOM':'缩放','PRESETS':'预设作品','Choose artwork…':'选择预设…','Luminous Mandala':'璀璨曼陀罗','Glass Flower':'琉璃花','Orbit Bloom':'轨道花','Solar Flame':'太阳火焰','Aurora Fan':'极光扇面','Prismatic Star':'棱镜星芒','Lace Rosette':'蕾丝花环','Orbit Cluster':'轨道星簇','Crystal Web':'水晶网格','Wave Petals':'波纹花瓣','Infinity Bloom':'无限花环','Comet Spiral':'彗星螺旋','Random art':'随机生成','Auto demo':'自动演示','Fullscreen':'全屏','Custom center mode: tap or click canvas to place symmetry center. Zoom changes the artwork view.':'自定义中心：点击画布设置对称中心。缩放可调整画面视图。','CLEAR':'清空','PNG 2×':'PNG 2×','SVG':'SVG','Record':'录制','Stop':'停止','LIVE CANVAS · LIGHT STUDY':'实时画布 · 光影实验','STUDIO CONTROLS　⌃':'工作室控制　⌃','CLOSE STUDIO　⌄':'Close面板　⌄','DRAW • SPACE FOR DEMO • CTRL/CMD+⌫ TO UNDO':'Cmd+⌫ Undo','Undo · Ctrl/Cmd+⌫':'Cmd+⌫','Toggle eraser':'Toggle eraser','Clear canvas':'清空画布','Recording canvas to WebM':'正在录制画布为 WebM','WebM recording downloaded':'WebM 录制已下载','Preset loaded':'已载入预设','Auto demo started · click again to stop':'自动演示已启动 · 再点一次停止','Auto demo stopped':'自动演示已停止','Symmetry center placed':'已设置对称中心','Custom center mode: tap or click canvas to place symmetry center. Zoom changes the artwork view.':'自定义中心：点击画布设定中心点；之后可在画布上绘制。缩放只调整画面视图。','Eraser enabled':'橡皮擦已启用','Brush enabled':'画笔已启用','SVG wrapper exported (embedded PNG)':'SVG 容器已导出（内嵌 PNG）','Recording is not supported in this browser':'此浏览器不支持录制','STROKE SMOOTHING':'笔触平滑','BRUSH MODE':'画笔模式','GLOW / PARTICLE POWER':'流光／粒子强度','Silk Flow':'丝绸流光','Prism Ribbon':'棱镜缎带','Comet Trail':'彗星拖尾','Particle Spark':'粒子火花','Nebula Dust':'星云微尘','Plasma Arc':'等离子电弧','Soft':'柔和','Brilliant':'明亮','Responsive':'灵敏','Silky':'丝滑','Random: Bloom':'随机：花簇','Random: Orbit':'随机：轨道','Random: Ribbon':'随机：缎带','Random: Starburst':'随机：星芒','Random: Web':'随机：织网','Random: Petals':'随机：花瓣','Random: Comet':'随机：彗星','Random: Lissajous':'随机：利萨如曲线','Random: Lightburst':'随机：光束','Random: Lace':'随机：蕾丝','Stop demo':'停止演示','Auto demo started · click again to stop':'自动演示已启动 · 再点一次停止','Auto demo stopped':'自动演示已停止'
 };
 const translateNodes=[];const walker=document.createTreeWalker(document.querySelector('.sidebar').parentElement,NodeFilter.SHOW_TEXT);let textNode;while(textNode=walker.nextNode()){let key=textNode.nodeValue.trim();if(translations[key])translateNodes.push([textNode,textNode.nodeValue,key])}
 const localizedAttrs=[];document.querySelectorAll('[aria-label],[title]').forEach(el=>['aria-label','title'].forEach(attr=>{let val=el.getAttribute(attr);if(translations[val])localizedAttrs.push([el,attr,val])}));
-let language='en';function applyLanguage(){language=language==='en'?'zh':'en';for(const [node,original,key] of translateNodes){let leading=original.match(/^\s*/)[0],trailing=original.match(/\s*$/)[0];node.nodeValue=leading+(language==='zh'?translations[key]:key)+trailing;}for(const [el,attr,key] of localizedAttrs)el.setAttribute(attr,language==='zh'?translations[key]:key);$('language-toggle').textContent=language==='zh'?'中文 / EN':'EN / 中文';document.documentElement.lang=language==='zh'?'zh-CN':'en';$('language-toggle').setAttribute('aria-label',language==='zh'?'切换为英文':'Switch to Chinese');}
+let language='zh';function applyLanguage(){language=language==='en'?'zh':'en';for(const [node,original,key] of translateNodes){let leading=original.match(/^\s*/)[0],trailing=original.match(/\s*$/)[0];node.nodeValue=leading+(language==='zh'?translations[key]:key)+trailing;}for(const [el,attr,key] of localizedAttrs)el.setAttribute(attr,language==='zh'?translations[key]:key);$('language-toggle').textContent=language==='zh'?'中文 / EN':'EN / 中文';document.documentElement.lang=language==='zh'?'zh-CN':'en';$('language-toggle').setAttribute('aria-label',language==='zh'?'Switch language':'Switch to Chinese');}
 $('language-toggle').addEventListener('click',applyLanguage);applyLanguage();updatePaletteUI();
 resize();resetStrands();updateCenterMarker();snapshot(true);
 
 // ── Keyboard shortcuts + help panel ─────────────────────────────
 const SC_GROUPS=[
-{t:'绘画 / DRAWING',rows:[
-{k:[['Z'],['Ctrl','Backspace']],d:'撤销'},
-{k:[['Y'],['Ctrl','Y']],d:'重做'},
-{k:[['E']],d:'切换橡皮擦'},
-{k:[['[']],d:'减小画笔粗细'},
-{k:[[']']],d:'增大画笔粗细'},
-{k:[['Shift','C']],d:'清空画布（二次确认）'},
-{k:[['R']],d:'随机生成作品'}]},
-{t:'视图 / VIEW',rows:[
-{k:[['1'],['7']],d:'切换对称模式（放射 → 自定义中心）'},
-{k:[['F']],d:'进入／退出全屏'},
-{k:[['+'],['−']],d:'放大／缩小画布'},
-{k:[['0']],d:'重置缩放为 100%'}]},
-{t:'演示与主题 / DEMO & THEME',rows:[
-{k:[['Space'],['D']],d:'启动／停止自动演示'},
-{k:[['T']],d:'循环切换界面主题'}]},
-{t:'导出 / EXPORT',rows:[
-{k:[['P']],d:'保存 PNG 2×'},
-{k:[['S']],d:'保存 SVG（内嵌位图）'},
-{k:[['V']],d:'开始／停止录制（视浏览器而定）'}]},
-{t:'帮助 / HELP',rows:[
-{k:[['?'],['Shift','/']],d:'打开快捷键面板'},
-{k:[['Esc']],d:'关闭面板／退出全屏／停止演示'}]}];
+{t:'DRAWING',rows:[
+{k:[['Z'],['Ctrl','Backspace']],d:'Undo'},
+{k:[['Y'],['Ctrl','Y']],d:'Redo'},
+{k:[['E']],d:'Toggle eraser'},
+{k:[['[']],d:'Decrease brush size'},
+{k:[[']']],d:'Increase brush size'},
+{k:[['Shift','C']],d:'Clear the canvas (confirms twice)'},
+{k:[['R']],d:'Generate a random work'}]},
+{t:'VIEW',rows:[
+{k:[['1'],['7']],d:'Cycle symmetry mode (radial → custom centre)'},
+{k:[['F']],d:'Enter or leave fullscreen'},
+{k:[['+'],['−']],d:'Zoom the canvas'},
+{k:[['0']],d:'Reset zoom to 100%'}]},
+{t:'DEMO & THEME',rows:[
+{k:[['Space'],['D']],d:'Start or stop the demo'},
+{k:[['T']],d:'Cycle the interface theme'}]},
+{t:'EXPORT',rows:[
+{k:[['P']],d:'Save PNG at 2×'},
+{k:[['S']],d:'Save SVG (embedded bitmap)'},
+{k:[['V']],d:'Record (browser permitting)'}]},
+{t:'HELP',rows:[
+{k:[['?'],['Shift','/']],d:'Open the shortcuts panel'},
+{k:[['Esc']],d:'Close panel / exit fullscreen / stop demo'}]}];
 const scBtn=document.getElementById('shortcuts-toggle');
 const scBackdrop=document.createElement('div');scBackdrop.className='sc-backdrop';
 const scPanel=document.createElement('div');scPanel.className='sc-panel';scPanel.tabIndex=-1;
 scPanel.setAttribute('role','dialog');scPanel.setAttribute('aria-modal','true');scPanel.setAttribute('aria-labelledby','sc-title');
 function scKeys(combos){return combos.map(function(c){return '<span class="sc-combo">'+c.map(function(x){return '<kbd>'+x+'</kbd>'}).join('<span class="sc-plus">+</span>')+'</span>'}).join('<span class="sc-sep">/</span>')}
 const scBody=SC_GROUPS.map(function(g){return '<div class="sc-group"><div class="sc-gtitle">'+g.t+'</div>'+g.rows.map(function(r){return '<div class="sc-row"><span class="sc-keys">'+scKeys(r.k)+'</span><span class="sc-desc">'+r.d+'</span></div>'}).join('')+'</div>'}).join('');
-scPanel.innerHTML='<div class="sc-head"><span class="sc-title" id="sc-title">KEYBOARD SHORTCUTS / 键盘快捷键</span><button type="button" class="sc-close" aria-label="关闭快捷键面板">×</button></div><div class="sc-body">'+scBody+'</div><div class="sc-foot">按 Esc 关闭</div>';
+scPanel.innerHTML='<div class="sc-head"><span class="sc-title" id="sc-title">KEYBOARD SHORTCUTS</span><button type="button" class="sc-close" aria-label="Close the shortcuts panel">×</button></div><div class="sc-body">'+scBody+'</div><div class="sc-foot">按 Esc Close</div>';
 document.body.appendChild(scBackdrop);document.body.appendChild(scPanel);
 const scCloseBtn=scPanel.querySelector('.sc-close');
 let scOpen=false,scReturn=null,clearArmed=0;
@@ -562,15 +563,15 @@ if(scOpen){if(k==='Escape'){e.preventDefault();closeShortcuts()}else if(k==='Tab
 if(typing)return;
 if(mod&&!alt){const lk=k.toLowerCase();
 if(lk==='y'){e.preventDefault();restore(snapAt+1);return}
-if(k==='Backspace'){e.preventDefault();restore(snapAt-1);scToast('撤销');return}
+if(k==='Backspace'){e.preventDefault();restore(snapAt-1);scToast('Undo');return}
 return}
 if(alt)return;
 if(k==='Escape'){if(document.fullscreenElement){if(document.exitFullscreen)document.exitFullscreen();e.preventDefault();return}if(demoOn){$('demo').click();e.preventDefault();return}return}
 if(k==='?'||(k==='/'&&shift)){e.preventDefault();openShortcuts();return}
 const c=k.length===1?k.toLowerCase():k;
 if(c===' '){e.preventDefault();$('demo').click();return}
-if(c==='z'){e.preventDefault();restore(snapAt-1);scToast('撤销');return}
-if(c==='y'){e.preventDefault();restore(snapAt+1);scToast('重做');return}
+if(c==='z'){e.preventDefault();restore(snapAt-1);scToast('Undo');return}
+if(c==='y'){e.preventDefault();restore(snapAt+1);scToast('Redo');return}
 if(c==='e'){e.preventDefault();$('eraser').click();scToast(erasing?'橡皮擦：开':'橡皮擦：关');return}
 if(c==='['){e.preventDefault();scWeight(-1);return}
 if(c===']'){e.preventDefault();scWeight(1);return}
@@ -598,8 +599,8 @@ const aiBtn=document.getElementById('ai-toggle');
 const aiBackdrop=document.createElement('div');aiBackdrop.className='sc-backdrop';
 const aiPanel=document.createElement('div');aiPanel.className='sc-panel ai-panel';
 aiPanel.setAttribute('role','dialog');aiPanel.setAttribute('aria-modal','true');aiPanel.setAttribute('aria-labelledby','ai-title');
-aiPanel.innerHTML='<div class="sc-head"><span class="sc-title" id="ai-title">AI STUDIO / 参数工作室 · v1.0.1</span><button type="button" class="sc-close" id="ai-close" aria-label="关闭 AI Studio">×</button></div>'+
-'<div class="sc-body"><div class="ai-step"><div class="sc-gtitle">1 · 描述 / DESCRIPTION</div><textarea id="ai-desc" class="ai-input" rows="3" placeholder="例：深海中的发光水晶花，青绿与冰蓝，极简几何，复杂度 60"></textarea><div class="ai-actions"><button type="button" class="ai-btn" id="ai-copy">复制 Prompt</button><span class="ai-hint">贴到任一模型，取回 JSON</span></div></div>'+
+aiPanel.innerHTML='<div class="sc-head"><span class="sc-title" id="ai-title">AI STUDIO · v1.0.1</span><button type="button" class="sc-close" id="ai-close" aria-label="Close AI Studio">×</button></div>'+
+'<div class="sc-body"><div class="ai-step"><div class="sc-gtitle">DESCRIPTION</div><textarea id="ai-desc" class="ai-input" rows="3" placeholder="例：深海中的发光水晶花，青绿与冰蓝，极简几何，复杂度 60"></textarea><div class="ai-actions"><button type="button" class="ai-btn" id="ai-copy">Copy the prompt</button><span class="ai-hint">贴到任一模型，取回 JSON</span></div></div>'+
 '<div class="ai-step"><div class="sc-gtitle">2 · 贴上模型回传的 JSON</div><textarea id="ai-json" class="ai-input" rows="6" placeholder="{&quot;schemaVersion&quot;:&quot;1.0.1&quot;, &hellip;}"></textarea><div class="ai-actions"><button type="button" class="ai-btn" id="ai-check">验证</button><button type="button" class="ai-btn ai-primary" id="ai-apply" disabled>套用到画布设定</button><button type="button" class="ai-btn" id="ai-clear">清空</button></div></div>'+
 '<div class="ai-step"><div class="sc-gtitle">3 · 检查结果</div><div class="ai-report" id="ai-report">尚未验证。</div></div></div>'+
 '<div class="sc-foot">套用只改控件，不清空画布 · API 密钥不可放在前端</div>';
@@ -758,7 +759,7 @@ document.getElementById('ai-json').addEventListener('input',function(){
  aiCfg=null;aiValidatedText='';document.getElementById('ai-apply').disabled=true;
  const v=this.value.trim();
  if(!v)aiRender('尚未验证。');
- else if(v.indexOf('{')<0)aiRender('<span class="ai-err">这段看起来不是 JSON。</span><div class="ai-note">第 2 步要贴的是模型回传的 JSON 对象；如果你想复制 Prompt 去问模型，请用上面的「复制 Prompt」。</div>');
+ else if(v.indexOf('{')<0)aiRender('<span class="ai-err">这段看起来不是 JSON。</span><div class="ai-note">第 2 步要贴的是模型回传的 JSON 对象；如果你想Copy the prompt 去问模型，请用上面的「Copy the prompt」。</div>');
  else aiRender('<span class="ai-warn">内容已修改，请重新点「验证」。</span>');
 });
 
